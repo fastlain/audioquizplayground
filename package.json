@@ -1,0 +1,24 @@
+{
+  "name": "audioquizplayground",
+  "version": "1.0.0",
+  "description": "A sample MDN app that uses getUserMedia and MediaRecorder API for recording audio snippets, and The Web Audio API for visualizations.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon scripts/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fastlain/audioquizplayground.git"
+  },
+  "keywords": [],
+  "author": "Lawrence Whiteside <law@cinemasetfree.com> (http://lawrencewhiteside.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fastlain/audioquizplayground/issues"
+  },
+  "homepage": "https://github.com/fastlain/audioquizplayground#readme",
+  "dependencies": {
+    "@google-cloud/speech": "^1.5.0",
+    "express": "^4.16.3"
+  }
+}

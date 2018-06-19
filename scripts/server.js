@@ -1,41 +1,46 @@
 // Imports the Google Cloud client library
-const speech = require('@google-cloud/speech');
-const fs = require('fs');
+const speech = require("@google-cloud/speech")
+const fs = require("fs")
 
-// Creates a client
-const client = new speech.SpeechClient();
+const express = require("express")
+const app = express()
 
-// The name of the audio file to transcribe
-const fileName = './test.wav';
+app.use(express.static("."))
 
-// Reads a local audio file and converts it to base64
-const file = fs.readFileSync(fileName);
-const audioBytes = file.toString('base64');
+app.post((req, res) => {
+  const audioBytes = req.body.file
+  // Creates a client
+  const client = new speech.SpeechClient()
 
-// The audio file's encoding, sample rate in hertz, and BCP-47 language code
-const audio = {
-  content: audioBytes,
-};
-const config = {
-  encoding: 'LINEAR16',
-  sampleRateHertz: 44100,
-  languageCode: 'en-US',
-};
-const request = {
-  audio: audio,
-  config: config,
-};
+  // The audio file's encoding, sample rate in hertz, and BCP-47 language code
+  const audio = {
+    content: audioBytes
+  }
+  const config = {
+    encoding: "LINEAR16",
+    sampleRateHertz: 44100,
+    languageCode: "en-US"
+  }
+  const request = {
+    audio: audio,
+    config: config
+  }
 
-// Detects speech in the audio file
-client
-  .recognize(request)
-  .then(data => {
-    const response = data[0];
-    const transcription = response.results
-      .map(result => result.alternatives[0].transcript)
-      .join('\n');
-    console.log(`Transcription: ${transcription}`);
-  })
-  .catch(err => {
-    console.error('ERROR:', err);
-  });
+  // Detects speech in the audio file
+  client
+    .recognize(request)
+    .then(data => {
+      const response = data[0]
+      const transcription = response.results
+        .map(result => result.alternatives[0].transcript)
+        .join("\n")
+      console.log(`Transcription: ${transcription}`)
+    })
+    .catch(err => {
+      console.error("ERROR:", err)
+    })
+})
+
+app.listen(8080, () => {
+  console.log("Running")
+})

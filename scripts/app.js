@@ -6,13 +6,7 @@ var soundClips = document.querySelector('.sound-clips');
 var mainSection = document.querySelector('.main-controls');
 
 // disable stop button while not recording
-
-<<<<<<< HEAD
-var audioCtx = new (window.AudioContext || webkitAudioContext)();
-var canvasCtx = canvas.getContext("2d");
-=======
 stop.disabled = true;
->>>>>>> gh-pages
 
 
 //main block for doing the audio recording

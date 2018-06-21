@@ -75,7 +75,7 @@ if (navigator.mediaDevices.getUserMedia) {
         clipLabel.textContent = clipName;
       }
 
-      // create audio HTML element with controls
+      // create <audio> HTML element with controls
       const audio = document.createElement("audio");
       audio.setAttribute("controls", "");
       audio.controls = true;
@@ -98,6 +98,7 @@ if (navigator.mediaDevices.getUserMedia) {
 
       // create a Blob object with data recorded into the chunks array
       const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
+      console.log("Blob:" + blob);
       
       // clear the chunks variable for the next recording
       chunks = [];
@@ -105,6 +106,19 @@ if (navigator.mediaDevices.getUserMedia) {
       // create a URL to access the blob and point the audio element to it
       const audioURL = window.URL.createObjectURL(blob);
       audio.src = audioURL;
+     
+      var fd = new FormData();
+      fd.append('audio', blob);
+      $.ajax({
+          type: 'POST',
+          url: 'http://localhost:8080/audio',
+          data: fd,
+          processData: false,
+          contentType: false
+      });
+      
+      console.log('posted data');
+      
       console.log("recorder stopped");
 
       // handle delete button
